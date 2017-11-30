@@ -1,5 +1,5 @@
-let API = 'https://api.bitfinex.com/v1/pubticker/btcusd';
-let STATS = ['last_price', 'bid', 'ask'];
+const API = 'https://api.bitfinex.com/v1/pubticker/btcusd';
+const STATS = ['last_price', 'bid', 'ask'];
 let money = new Intl.NumberFormat('en-US', {
   style: 'currency',
   currency: 'USD',
