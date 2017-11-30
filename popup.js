@@ -1,13 +1,20 @@
+let API = 'https://api.bitfinex.com/v1/pubticker/btcusd';
+let STATS = ['last_price', 'bid', 'ask'];
+let money = new Intl.NumberFormat('en-US', {
+  style: 'currency',
+  currency: 'USD',
+  minimumFractionDigits: 2,
+});
 
 function showPrice_() {
-  var raw = httpGet('https://api.bitfinex.com/v1/pubticker/btcusd');
-  var json = JSON.parse(raw);
-  var price = json["last_price"];
-  var bid = json["bid"];
-  var ask = json["ask"];
-  document.getElementById("price").innerHTML = price;
-  document.getElementById("bid").innerHTML = bid;
-  document.getElementById("ask").innerHTML = ask;
+  let json = JSON.parse(httpGet(API));
+  console.log(json);
+
+  STATS.forEach(function(stat) {
+    document.getElementById(stat).innerHTML = money.format(
+      parseFloat((json[stat]))
+    );
+  });
 }
 
 function httpGet(theUrl) {
@@ -43,7 +50,7 @@ function addEvent(element, evnt, funct){
 function handleChange() {
   var cb = document.querySelector('#refresher');
   if(cb.checked == true){
-    timer = setInterval(function(){showPrice_();}, 500);
+    timer = setInterval(function(){showPrice_();}, 2000);
   }
   else{
    clearInterval(timer);
